@@ -1,21 +1,13 @@
 const { MongoClient }=require('mongodb');
-const {mongo_uri}=require('./env-config')
-
-// instance
-const client=new MongoClient(mongo_uri);
+const {mongo_uri}=require('./env-config');
+const mongoose=require('mongoose');
 
 // create connection
 const connectDB=async()=>{
 
-    await client.connect();
+    await mongoose.connect(mongo_uri);
 
-    const db=client.db('test');
-
-    const collection=db.collection('movies');
-
-    let allMovies=await collection.find().toArray();
-
-    console.log(allMovies);
+    console.log("DB connected..")
 }
 
 connectDB().catch(err=>{
